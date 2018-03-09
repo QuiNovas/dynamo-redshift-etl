@@ -11,7 +11,7 @@ from jsonpointer import resolve_pointer
 boto3.resource('dynamodb')
 deserializer = TypeDeserializer()
 dynamo_redshift_etl = json.loads(os.environ['DYNAMO_REDSHIFT_ETL'])
-dynamo_table_re = re.compile('^arn:aws:dynamodb:[a-z]{2}-[a-z]*-[0-9]{1}:[0-9]*:table\/(.+?)\/')
+dynamo_table_re = re.compile('^arn:aws:dynamodb:[a-z]{2}-[a-z]*-[0-9]:[0-9]*:table/(.+?)/')
 redshift_connection_string = "host='" + \
                              os.environ['REDSHIFT_HOST'] + \
                              "' dbname='" + \
