@@ -1,5 +1,5 @@
 # dynamo-redshift-etl
-Lambda function that is notified on DynamoDB table changes and insert/updates a Redshift table
+Lambda function that is notified on DynamoDB table changes and insert/updates a Redshift table. This is designed to be attached to a DynamoDB stream for updates.
 
 # Environment Variables:
 - **REDSHIFT_HOST**
