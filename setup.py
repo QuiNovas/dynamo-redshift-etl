@@ -1,7 +1,7 @@
 # To use a consistent encoding
 from codecs import open
 from os import path
-from setuptools import setup, find_packages, Command
+from setuptools import setup, find_packages
 
 
 here = path.abspath(path.dirname(__file__))
@@ -15,7 +15,7 @@ lambda_name = 'dynamo-redshift-etl'
 # Versions should comply with PEP440.  For a discussion on single-sourcing
 # the version across setup.py and the project code, see
 # https://packaging.python.org/en/latest/single_source_version.html
-lambda_version = '0.0.1'
+lambda_version = '0.0.2'
 
 lambda_description = 'Lambda providing dynamic etl from dynamo to redshift'
 
