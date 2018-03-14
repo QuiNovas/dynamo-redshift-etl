@@ -29,7 +29,7 @@ redshift = boto3.client('redshift')
 
 
 def get_connection_string():
-    if 'Expiration' not in cluster_credentials or cluster_credentials['Expiration'] - timedelta(seconds=30) <= 0:
+    if 'Expiration' not in cluster_credentials or (cluster_credentials['Expiration'] - datetime.utcnow()).total_seconds() <= 30:
         temp_credentials = redshift.get_cluster_credentials(
             ClusterIdentifier=os.environ['REDSHIFT_CLUSTER_IDENTIFIER'],
             DbName=os.environ['REDSHIFT_DB_NAME'],
