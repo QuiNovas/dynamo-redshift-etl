@@ -8,7 +8,6 @@ import re
 from boto3.dynamodb.types import TypeDeserializer
 from datetime import datetime
 from jsonpointer import resolve_pointer
-from pytz import UTC
 
 base_redshift_connection_string = "host='" + \
                                   os.environ['REDSHIFT_HOST'] + \
@@ -22,7 +21,7 @@ cluster_credentials = {}
 if 'REDSHIFT_PASSWORD' in os.environ:
     cluster_credentials['DbUser'] = os.environ['REDSHIFT_USER']
     cluster_credentials['DbPassword'] = os.environ['REDSHIFT_PASSWORD']
-    cluster_credentials['Expiration'] = datetime.max.replace(tzinfo=UTC)
+    cluster_credentials['Expiration'] = datetime.max
 deserializer = TypeDeserializer()
 dynamo_redshift_etl = json.loads(os.environ['DYNAMO_REDSHIFT_ETL'])
 dynamo_table_re = re.compile('^arn:aws:dynamodb:[a-z]{2}-[a-z]*-[0-9]:[0-9]*:table/(.+?)/')
@@ -39,7 +38,7 @@ def get_connection_string():
         )
         cluster_credentials['DbUser'] = temp_credentials['DbUser']
         cluster_credentials['DbPassword'] = temp_credentials['DbPassword']
-        cluster_credentials['Expiration'] = temp_credentials['Expiration'].replace(tzinfo=UTC)
+        cluster_credentials['Expiration'] = temp_credentials['Expiration'].replace(tzinfo=None)
     return base_redshift_connection_string + \
            " user='" + \
            cluster_credentials['DbUser'] + \
