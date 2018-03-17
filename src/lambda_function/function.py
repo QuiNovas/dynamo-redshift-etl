@@ -114,7 +114,7 @@ def handler(event, context):
         logger.debug('Connecting to Redshift with connection string: {}'.format(connection_string))
         with psycopg2.connect(connection_string) as redshift_connection:
             logger.info('Connected to redshift')
-            for record in filter(lambda x: x['eventName'] == 'INSERT', event['Records']):
+            for record in filter(lambda x: x['eventName'] == 'INSERT' or x['eventName'] == 'MODIFY', event['Records']):
                 dynamodb_table = dynamo_table_re.search(record['eventSourceARN']).group(1)
                 etl = dynamo_redshift_etl.get(dynamodb_table, None)
                 if etl:
