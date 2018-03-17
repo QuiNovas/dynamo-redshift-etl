@@ -121,9 +121,7 @@ def handler(event, context):
                     new_image = {k: deserializer.deserialize(v) for k, v in record['dynamodb']['NewImage'].items()}
                     fields = {}
                     for item in etl['fields'].items():
-                        value = resolve_pointer(new_image, item[1])
-                        if value:
-                            fields[item[0]] = value
+                        fields[item[0]] = resolve_pointer(new_image, item[1], None)
                     if len(fields) > 1:
                         upsert(
                             logger,
